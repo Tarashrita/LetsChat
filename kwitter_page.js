@@ -1,4 +1,4 @@
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyBMmZdkkv5fSokKZU9HzHMStD9GkWAwMnI",
     authDomain: "letschat-b5cb2.firebaseapp.com",
     databaseURL: "https://letschat-b5cb2-default-rtdb.firebaseio.com",
@@ -9,6 +9,9 @@ const firebaseConfig = {
   };
 
   firebase.initializeApp(firebaseConfig);
+
+var room_name
+var user_name
 
 function getData() { firebase.database().ref("/"+room_name).on('value', function(snapshot) { document.getElementById("output").innerHTML = ""; snapshot.forEach(function(childSnapshot) { childKey  = childSnapshot.key; childData = childSnapshot.val(); if(childKey != "purpose") {
        firebase_message_id = childKey;
@@ -29,4 +32,16 @@ function Send() {
           like:0
     });
     document.getElementById("msg").value="";
+}
+
+function UpdateLike(message_id)
+{
+    console.log("clicked on like button-"+message_id);
+    button_id=message_id;
+    likes-document.getElementById(button_id).value;
+    updated_likes=Number (likes)+1;
+    console.log(updated_likes);
+    firebase.database().ref(room_name).child(message_id).update({
+          Like:updated_likes
+    });
 }
